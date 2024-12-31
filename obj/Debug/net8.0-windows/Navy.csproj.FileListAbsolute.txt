@@ -1,0 +1,13 @@
+C:\Users\Willi\source\repos\Navy\Navy\bin\Debug\net8.0-windows\Navy.deps.json
+C:\Users\Willi\source\repos\Navy\Navy\bin\Debug\net8.0-windows\Navy.dll
+C:\Users\Willi\source\repos\Navy\Navy\bin\Debug\net8.0-windows\Navy.pdb
+C:\Users\Willi\source\repos\Navy\Navy\obj\Debug\net8.0-windows\Navy.csproj.AssemblyReference.cache
+C:\Users\Willi\source\repos\Navy\Navy\obj\Debug\net8.0-windows\Navy.csproj.ResolveComReference.cache
+C:\Users\Willi\source\repos\Navy\Navy\obj\Debug\net8.0-windows\Navy.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Willi\source\repos\Navy\Navy\obj\Debug\net8.0-windows\Navy.AssemblyInfoInputs.cache
+C:\Users\Willi\source\repos\Navy\Navy\obj\Debug\net8.0-windows\Navy.AssemblyInfo.cs
+C:\Users\Willi\source\repos\Navy\Navy\obj\Debug\net8.0-windows\Navy.csproj.CoreCompileInputs.cache
+C:\Users\Willi\source\repos\Navy\Navy\obj\Debug\net8.0-windows\Navy.dll
+C:\Users\Willi\source\repos\Navy\Navy\obj\Debug\net8.0-windows\refint\Navy.dll
+C:\Users\Willi\source\repos\Navy\Navy\obj\Debug\net8.0-windows\Navy.pdb
+C:\Users\Willi\source\repos\Navy\Navy\obj\Debug\net8.0-windows\ref\Navy.dll

@@ -1,0 +1,5 @@
+C:\Users\Willi\source\repos\Navy\Navy\obj\Debug\net8.0\Navy.csproj.AssemblyReference.cache
+C:\Users\Willi\source\repos\Navy\Navy\obj\Debug\net8.0\Navy.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Willi\source\repos\Navy\Navy\obj\Debug\net8.0\Navy.AssemblyInfoInputs.cache
+C:\Users\Willi\source\repos\Navy\Navy\obj\Debug\net8.0\Navy.AssemblyInfo.cs
+C:\Users\Willi\source\repos\Navy\Navy\obj\Debug\net8.0\Navy.csproj.CoreCompileInputs.cache
