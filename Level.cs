@@ -7,16 +7,15 @@ namespace Navy
 {
     public abstract class Level
     {
-        public Level()
-        {
-            Camera = new Camera();
-            Content = new ContentManager(Globals.Game.Services, "Content");
-        }
 
         public Color AmbientLight { get; set; } = Color.White;
         public Color BackgroundColor { get; set; } = Color.Black;
 
         public ContentManager Content { get; set; }
+        public Camera Camera { get; set; }
+        public static Level CurrentLevel { get; private set; }
+        internal List<GameObject> GameObjects { get; private set; } = [];
+
 
         protected abstract void Update(GameTime gameTime);
         protected abstract void PreDraw(SpriteBatch spriteBatch);
@@ -24,68 +23,93 @@ namespace Navy
 
         public static event EventHandler<Level> Loaded;
         public event EventHandler Exiting;
+        public Level()
+        {
+            Camera = new Camera();
+            Content = new ContentManager(Globals.Game.Services, "Content");
+        }
 
         public static void Draw(SpriteBatch spriteBatch)
         {
             if (CurrentLevel != null)
             {
+                // RENDER WORLD GAMEOBJECTS
                 Globals.GraphicsManager.GraphicsDevice.SetRenderTarget(Globals.WorldRenderTarget);
                 Globals.GraphicsManager.GraphicsDevice.Clear(Color.Transparent);
 
                 CurrentLevel.PreDraw(spriteBatch);
 
-                spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp, transformMatrix: CurrentLevel.Camera.GetViewMatrix());
-
-                for (int i = 0; i < CurrentLevel.GameObjects.Count; i++)
-                {
-                    if (CurrentLevel.GameObjects[i].Enabled)
-                    {
-                        CurrentLevel.GameObjects[i].Draw(spriteBatch);
-                    }
-                }
-                spriteBatch.End();
-
-                foreach (Canvas canvas in GameObject.FindComponents<Canvas>())
-                {
-                    if (canvas.Enabled && canvas.gameObject.Enabled && canvas.RenderInWorld)
-                    {
-                        canvas.Draw(spriteBatch);
-                    }
-                }
+                DrawWorld(spriteBatch);
 
                 CurrentLevel.PostDraw(spriteBatch);
 
+                // RENDER LIGHTS
                 Globals.GraphicsManager.GraphicsDevice.SetRenderTarget(Globals.LightRenderTarget);
                 Globals.GraphicsManager.GraphicsDevice.Clear(Color.Transparent);
 
-                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointClamp, transformMatrix: Level.CurrentLevel.Camera.GetViewMatrix());
+                DrawLights(spriteBatch);
 
-                foreach (LightSource lightSource in GameObject.FindComponents<LightSource>())
-                {
-                    if (lightSource.Enabled && lightSource.gameObject.Enabled)
-                    {
-                        lightSource.Draw(spriteBatch);
-                    }
-                }
 
-                spriteBatch.End();
-
+                // RENDER UI
                 spriteBatch.GraphicsDevice.SetRenderTarget(Globals.UIRenderTarget);
                 spriteBatch.GraphicsDevice.Clear(Color.Transparent);
 
-
-
-
-                foreach (Canvas canvas in GameObject.FindComponents<Canvas>())
-                {
-                    if (canvas.Enabled && canvas.gameObject.Enabled && !canvas.RenderInWorld)
-                    {
-                        canvas.Draw(spriteBatch);
-                    }
-                }
+                DrawUI(spriteBatch);
 
                 spriteBatch.GraphicsDevice.SetRenderTarget(null);
                 spriteBatch.GraphicsDevice.Clear(Level.CurrentLevel.BackgroundColor);
+
+
+            }
+        }
+
+        private static void DrawLights(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointClamp, transformMatrix: Level.CurrentLevel.Camera.GetViewMatrix());
+
+            foreach (LightSource lightSource in GameObject.FindComponents<LightSource>())
+            {
+                if (lightSource.Enabled && lightSource.gameObject.Enabled)
+                {
+                    lightSource.Draw(spriteBatch);
+                }
+            }
+
+            spriteBatch.End();
+        }
+
+        private static void DrawUI(SpriteBatch spriteBatch)
+        {
+
+            foreach (Canvas canvas in GameObject.FindComponents<Canvas>())
+            {
+                if (canvas.Enabled && canvas.gameObject.Enabled && !canvas.RenderInWorld)
+                {
+                    canvas.Draw(spriteBatch);
+                }
+            }
+        }
+        
+        private static void DrawWorld(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp, transformMatrix: CurrentLevel.Camera.GetViewMatrix());
+
+            for (int i = 0; i < CurrentLevel.GameObjects.Count; i++)
+            {
+                if (CurrentLevel.GameObjects[i].Enabled)
+                {
+                    CurrentLevel.GameObjects[i].Draw(spriteBatch);
+                }
+            }
+
+            spriteBatch.End();
+
+            foreach (Canvas canvas in GameObject.FindComponents<Canvas>())
+            {
+                if (canvas.Enabled && canvas.gameObject.Enabled && canvas.RenderInWorld)
+                {
+                    canvas.Draw(spriteBatch);
+                }
             }
         }
 
@@ -101,11 +125,8 @@ namespace Navy
                 }
 
                 Tweener.Update(gameTime);
-
                 Audio.Audio.Update(gameTime);
-
                 FieldWatcher.Update();
-
                 CurrentLevel.Update(gameTime);
             }
         }
@@ -155,16 +176,14 @@ namespace Navy
             return level;
         }
 
-        public Camera Camera { get; set; }
 
-        public static Level CurrentLevel { get; private set; }
-
-        public void Instantiate(GameObject go)
+        public GameObject Instantiate(GameObject go)
         {
             GameObjects.Add(go);
 
+            return go;
+
         }
 
-        internal List<GameObject> GameObjects { get; private set; } = [];
     }
 }

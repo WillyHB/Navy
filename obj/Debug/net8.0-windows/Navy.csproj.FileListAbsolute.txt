@@ -11,3 +11,4 @@ C:\Users\Willi\source\repos\Navy\Navy\obj\Debug\net8.0-windows\Navy.dll
 C:\Users\Willi\source\repos\Navy\Navy\obj\Debug\net8.0-windows\refint\Navy.dll
 C:\Users\Willi\source\repos\Navy\Navy\obj\Debug\net8.0-windows\Navy.pdb
 C:\Users\Willi\source\repos\Navy\Navy\obj\Debug\net8.0-windows\ref\Navy.dll
+C:\Users\Willi\source\repos\Navy\Navy\obj\Debug\net8.0-windows\Navy.sourcelink.json

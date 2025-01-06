@@ -18,5 +18,6 @@
             return firstFloat * (1 - by) + secondFloat * by;
         }
         #endregion
+
     }
 }

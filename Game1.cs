@@ -39,7 +39,8 @@ namespace Navy
             Globals.Window = Window;
 
             Globals.FramerateManager = new FramerateManager(SetFps);
-
+            IsMouseVisible = true;
+            IsFixedTimeStep = false;
             Window.TextInput += InputManager.Keyboard.TextInputHandler;
 
             Globals.WorldRenderTarget = new RenderTarget2D(GraphicsDevice, (int)ResolutionHandler.GetVirtualResolution().X, (int)ResolutionHandler.GetVirtualResolution().Y);
@@ -95,17 +96,17 @@ namespace Navy
         {
             Level.Draw(spriteBatch);
 
+            //World rendertarget doesn't draw
+            // Strange
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp);
             effect.Parameters["lightMask"].SetValue(Globals.LightRenderTarget);
 
             effect.Parameters["ambientLight"].SetValue(Level.CurrentLevel.AmbientLight.ToVector4());
-            effect.CurrentTechnique.Passes[0].Apply();
-            //spriteBatch.Draw(Globals.WorldRenderTarget, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+            //effect.CurrentTechnique.Passes[0].Apply();
             spriteBatch.Draw(Globals.WorldRenderTarget, new Rectangle(0, 0, (int)ResolutionHandler.GetClientResolution().X, (int)ResolutionHandler.GetClientResolution().Y), null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0);
             spriteBatch.End();
 
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp);
-            //spriteBatch.Draw(Globals.UIRenderTarget, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
 
             spriteBatch.Draw(Globals.UIRenderTarget, new Rectangle(0, 0, (int)ResolutionHandler.GetClientResolution().X, (int)ResolutionHandler.GetClientResolution().Y), null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0);
             spriteBatch.End();

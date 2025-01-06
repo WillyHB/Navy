@@ -60,7 +60,7 @@ namespace Navy.UI
         public void SetWidth(int width) => rect.Width = width;
         public void SetHeight(int height) => rect.Height = height;
 
-        public RasterizerState rasterizerState = new RasterizerState() { ScissorTestEnable = true };
+        public RasterizerState rasterizerState = new() { ScissorTestEnable = true };
 
         private Rectangle rect;
         public Texture2D BackgroundTexture { get; set; }
@@ -308,6 +308,7 @@ namespace Navy.UI
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, rasterizerState: rasterizerState);
+
 
             if (BackgroundTexture != null)
             {

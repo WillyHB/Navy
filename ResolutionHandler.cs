@@ -2,8 +2,8 @@
 {
     public static class ResolutionHandler
     {
-        public static readonly ushort[] Widths = new ushort[] { 1024, 1280, 1280, 1280, 1360, 1366, 1440, 1600, 1680, 1920, 1920, 2560, 2560, 2560, 3440, 3840 };
-        public static readonly ushort[] Heights = new ushort[] { 768, 1024, 720,  800,  768,  768,  900,  900,  1050, 1080, 1200, 1080, 1600, 1440, 1440, 2160};
+        public static readonly ushort[] Widths = [1024, 1280, 1280, 1280, 1360, 1366, 1440, 1600, 1680, 1920, 1920, 2560, 2560, 2560, 3440, 3840];
+        public static readonly ushort[] Heights = [768, 1024, 720, 800, 768, 768, 900, 900, 1050, 1080, 1200, 1080, 1600, 1440, 1440, 2160];
 
         public static void SetResolution(int index)
         {
